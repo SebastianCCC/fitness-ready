@@ -4,10 +4,10 @@
     "slug": "fitness-ready",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icons/icon.png",
+    "icon": "./assets/icons/logo.svg",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/fr-splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#14191F"
     },
@@ -20,12 +20,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icons/adaptive-icon.png",
+        "foregroundImage": "./assets/icons/logo.svg",
         "backgroundColor": "#14191F"
       }
     },
     "web": {
-      "favicon": "./assets/icons/favicon.png"
+      "favicon": "./assets/icons/logo.svg"
     }
   }
 }

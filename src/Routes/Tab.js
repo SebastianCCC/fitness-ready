@@ -5,6 +5,7 @@ import Home from '../Screens/Home'
 import { NavigationContainer } from '@react-navigation/native'
 import { Text } from 'react-native'
 import { tw } from '../../tailwind'
+import { HomeIcon, AddWorkoutIcon, StatusIcon } from './Assets'
 
 const Tab = createMaterialBottomTabNavigator()
 
@@ -21,9 +22,7 @@ function Tabs() {
           component={Home}
           options={{
             tabBarLabel: <Text style={tw`text-[12px] font-extrabold uppercase italic`}>Home</Text>,
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
-            ),
+            tabBarIcon: ({ color }) => <HomeIcon color={color} />,
           }}
         />
         <Tab.Screen
@@ -33,9 +32,7 @@ function Tabs() {
             tabBarLabel: (
               <Text style={tw`text-[12px] font-extrabold uppercase italic`}>Add Workout</Text>
             ),
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="plus" color={color} size={26} />
-            ),
+            tabBarIcon: ({ color }) => <AddWorkoutIcon color={color} />,
           }}
         />
         <Tab.Screen
@@ -45,9 +42,7 @@ function Tabs() {
             tabBarLabel: (
               <Text style={tw`text-[12px] font-extrabold uppercase italic`}>Status</Text>
             ),
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="fire" color={color} size={26} />
-            ),
+            tabBarIcon: ({ color }) => <StatusIcon color={color} />,
           }}
         />
       </Tab.Navigator>
