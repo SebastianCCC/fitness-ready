@@ -12,11 +12,13 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     steps:
-      - run: npm i -D cypress
       - name: Checkout
         uses: actions/checkout@v2
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
+      - name: Install Cypress
+        run: npm i cypress
+        
       - name: Cypress run 🧪
         uses: cypress-io/github-action@v4
         with:
