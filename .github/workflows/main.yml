@@ -14,10 +14,3 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Install Cypress
-        run: npm i cypress
-        
-      - name: Cypress run 🧪
-        uses: cypress-io/github-action@v4
