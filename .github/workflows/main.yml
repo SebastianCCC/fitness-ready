@@ -19,6 +19,9 @@ jobs:
       - name: Install Cypress
         run: npm i cypress
         
+      - name: Install Expo
+        run: npx expo install react-native-web@~0.18.7 react-dom@18.0.0 @expo/webpack-config@^0.17.0
+        
       - name: Cypress run 🧪
         uses: cypress-io/github-action@v4
         with:
