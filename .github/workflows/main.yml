@@ -13,17 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Install Cypress
         run: npm i cypress
         
-      - name: Install Expo
-        run: npx expo install react-native-web@~0.18.7 react-native@0.69.5 react-dom@18.0.0 @expo/webpack-config@^0.17.0
-        
       - name: Cypress run 🧪
         uses: cypress-io/github-action@v4
-        with:
-          start: npm run web
-          wait-on: 'http://localhost:19006'
