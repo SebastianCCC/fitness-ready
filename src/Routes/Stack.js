@@ -14,22 +14,10 @@ const MainStackNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerBackTitle: '',
-          headerTitle: '',
-          headerStyle: {
-            backgroundColor: '#21272E',
-          },
-          headerShadowVisible: false,
-          headerTintColor: 'white',
+          headerShown: false,
         }}
       >
-        <Stack.Screen
-          name="Welcome"
-          component={Welcome}
-          options={{
-            headerShown: false,
-          }}
-        />
+        <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="LogIn" component={LogIn} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="MainApp" component={MainApp} />
