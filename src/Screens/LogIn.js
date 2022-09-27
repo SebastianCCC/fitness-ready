@@ -5,13 +5,13 @@ import NavigationHeader from '../Components/Header/NavigationHeader'
 import db, { auth } from '../../firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 
-export default function LogIn({ navigation: { navigate } }) {
+export default function LogIn({ navigation }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const SignUserIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        navigate('MainApp')
+        navigation.navigate('MainApp')
       })
       .catch((error) => {
         console.log(error.message)
@@ -19,7 +19,7 @@ export default function LogIn({ navigation: { navigate } }) {
   }
   return (
     <>
-      <NavigationHeader navigate={navigate} />
+      <NavigationHeader navigation={navigation} />
       <View style={tw`flex-1 bg-[#21272E] p-page`}>
         <Text style={tw`text-white uppercase text-base font-bold italic text-center`}>
           Welcome Back
