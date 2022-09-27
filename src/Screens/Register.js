@@ -1,15 +1,23 @@
 import { View, Text, TouchableHighlight, KeyboardAvoidingView, TextInput } from 'react-native'
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { tw } from '../../tailwind'
 import NavigationHeader from '../Components/Header/NavigationHeader'
 import db, { auth } from '../../firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { CommonActions } from '@react-navigation/native'
-import { StateContext } from '../Util/StateContext'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { schema } from '../schema/RegisterSchema'
 
 export default function Register({ navigation }) {
-  const { email, setEmail, password, setPassword } = useContext(StateContext)
-  const RegisterUser = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  })
+  const RegisterUser = ({ email, password }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         navigation.navigate('MainApp')
@@ -34,28 +42,50 @@ export default function Register({ navigation }) {
         <View style={tw`pt-[30px]`}>
           <Text style={tw`text-white uppercase text-sm font-bold`}>Register An Account</Text>
           <KeyboardAvoidingView behavior="padding">
-            <TextInput
-              placeholder="Username"
-              placeholderTextColor="#BCC3CD"
-              style={tw`w-full p-page mt-[10px] bg-secondary/25 rounded-md text-white`}
-            />
-            <TextInput
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-              placeholder="Email Address"
-              placeholderTextColor="#BCC3CD"
-              style={tw`w-full p-page mt-[10px] bg-secondary/25 rounded-md text-white`}
-            />
-            <TextInput
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-              placeholder="Password"
-              placeholderTextColor="#BCC3CD"
-              style={tw`w-full p-page mt-[10px] bg-secondary/25 rounded-md text-white`}
-              secureTextEntry
-            />
+            <View style={tw`mt-[10px]`}>
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    placeholder="Email Address"
+                    placeholderTextColor="#BCC3CD"
+                    style={tw`w-full p-page bg-secondary/25 rounded-md text-white border ${
+                      errors.email ? 'border-warning' : 'border-[#21272E]'
+                    }`}
+                  />
+                )}
+                name="email"
+              />
+            </View>
+            <View style={tw`mt-[10px]`}>
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    placeholder="Password"
+                    placeholderTextColor="#BCC3CD"
+                    style={tw`w-full p-page bg-secondary/25 rounded-md text-white border ${
+                      errors.password ? 'border-warning' : 'border-[#21272E]'
+                    }`}
+                    secureTextEntry
+                  />
+                )}
+                name="password"
+              />
+            </View>
+            {Boolean(Object.keys(errors).length) && (
+              <Text style={tw`mt-[10px] text-warning`}>
+                {errors.email?.message || errors.password?.message}
+              </Text>
+            )}
             <TouchableHighlight
-              onPress={RegisterUser}
+              onPress={handleSubmit(RegisterUser)}
               style={tw`w-[100%] bg-additional p-page m-auto mt-[30px] rounded-md`}
             >
               <Text style={tw`text-tertiary uppercase text-base font-bold italic text-center`}>

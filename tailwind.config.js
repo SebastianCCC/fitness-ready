@@ -6,6 +6,7 @@ module.exports = {
       tertiary: '#BCC3CD',
       additional: '#4630EB',
       sec_linear: '#6453E2',
+      warning: '#b91c1c',
       white: '#ffffff',
       // ...
     },
