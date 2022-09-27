@@ -79,9 +79,30 @@ export default function Register({ navigation }) {
                 name="password"
               />
             </View>
+            <View style={tw`mt-[10px]`}>
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    placeholder="Confirm Password"
+                    placeholderTextColor="#BCC3CD"
+                    style={tw`w-full p-page bg-secondary/25 rounded-md text-white border ${
+                      errors.confirmPassword ? 'border-warning' : 'border-[#21272E]'
+                    }`}
+                    secureTextEntry
+                  />
+                )}
+                name="confirmPassword"
+              />
+            </View>
             {Boolean(Object.keys(errors).length) && (
               <Text style={tw`mt-[10px] text-warning`}>
-                {errors.email?.message || errors.password?.message}
+                {errors.email?.message ||
+                  errors.password?.message ||
+                  errors.confirmPassword?.message}
               </Text>
             )}
             <TouchableHighlight

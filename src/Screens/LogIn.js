@@ -7,7 +7,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { CommonActions } from '@react-navigation/native'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { schema } from '../schema/RegisterSchema'
+import { schema } from '../schema/LogInSchema'
 
 export default function LogIn({ navigation }) {
   const [err, setErr] = useState(null)
