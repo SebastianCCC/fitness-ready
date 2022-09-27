@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 
+import SplashScreen from '../Screens/SplashScreen'
 import Welcome from '../Screens/Welcome'
 import LogIn from '../Screens/LogIn'
 import Register from '../Screens/Register'
@@ -13,10 +14,12 @@ const MainStackNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
+        initialRouteName="SplashScreen"
         screenOptions={{
           headerShown: false,
         }}
       >
+        <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="LogIn" component={LogIn} />
         <Stack.Screen name="Register" component={Register} />
