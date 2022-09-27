@@ -4,6 +4,7 @@ import { tw } from '../../tailwind'
 import NavigationHeader from '../Components/Header/NavigationHeader'
 import db, { auth } from '../../firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
+import { CommonActions } from '@react-navigation/native'
 
 export default function LogIn({ navigation }) {
   const [email, setEmail] = useState('')
@@ -12,6 +13,12 @@ export default function LogIn({ navigation }) {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         navigation.navigate('MainApp')
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [{ name: 'MainApp' }],
+          })
+        )
       })
       .catch((error) => {
         console.log(error.message)
