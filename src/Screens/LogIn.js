@@ -1,14 +1,14 @@
 import { View, Text, TouchableHighlight, KeyboardAvoidingView, TextInput } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { tw } from '../../tailwind'
 import NavigationHeader from '../Components/Header/NavigationHeader'
 import db, { auth } from '../../firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { CommonActions } from '@react-navigation/native'
+import { StateContext } from '../Util/StateContext'
 
 export default function LogIn({ navigation }) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const { email, setEmail, password, setPassword } = useContext(StateContext)
   const SignUserIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
