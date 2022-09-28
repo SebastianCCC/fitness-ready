@@ -1,10 +1,11 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import AddWorkout from '../Screens/AddWorkout'
 import Home from '../Screens/Home'
+import AddWorkout from '../Screens/AddWorkout'
+import Settings from '../Screens/Settings'
 import { Text } from 'react-native'
 import { tw } from '../../tailwind'
-import { HomeIcon, AddWorkoutIcon, StatusIcon } from './Assets'
+import { HomeIcon, AddWorkoutIcon, StatusIcon, SettingsIcon } from './Assets'
 
 const Tab = createMaterialBottomTabNavigator()
 
@@ -39,6 +40,16 @@ function Tabs() {
         options={{
           tabBarLabel: <Text style={tw`text-[12px] font-extrabold uppercase italic`}>Status</Text>,
           tabBarIcon: ({ color }) => <StatusIcon color={color} />,
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          tabBarLabel: (
+            <Text style={tw`text-[12px] font-extrabold uppercase italic`}>Settings</Text>
+          ),
+          tabBarIcon: ({ color }) => <SettingsIcon color={color} />,
         }}
       />
     </Tab.Navigator>

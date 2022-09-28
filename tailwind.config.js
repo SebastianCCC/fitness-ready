@@ -6,12 +6,14 @@ module.exports = {
       tertiary: '#BCC3CD',
       additional: '#4630EB',
       sec_linear: '#6453E2',
-      warning: '#b91c1c',
+      warning: '#BD3F3F',
       white: '#ffffff',
       // ...
     },
     padding: {
       page: '15px',
+      space: '8px',
+      0: '0',
     },
     fontSize: {
       sm: '12px',
