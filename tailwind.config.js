@@ -12,7 +12,7 @@ module.exports = {
     },
     padding: {
       page: '15px',
-      space: '8px',
+      space: '13px',
       0: '0',
     },
     fontSize: {

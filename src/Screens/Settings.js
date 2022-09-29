@@ -12,6 +12,8 @@ import { StateContext } from '../Util/StateContext'
 import { signOut, deleteUser } from 'firebase/auth'
 import { CommonActions } from '@react-navigation/native'
 import { auth } from '../../firebase'
+import NavigationHeader from '../Components/Header/NavigationHeader'
+import { LinearGradient } from 'expo-linear-gradient'
 
 export default function Settings({ navigation }) {
   const { user } = useContext(StateContext)
@@ -50,57 +52,71 @@ export default function Settings({ navigation }) {
   }
 
   return (
-    <View style={tw`flex-1 bg-primary p-page`}>
-      <KeyboardAvoidingView behavior="padding">
-        <View style={tw`mt-[10px]`}>
-          <TextInput
-            onChangeText={(text) => setUsername(text)}
-            value={username ? username : null}
-            placeholder={!username ? 'Change Username' : null}
-            placeholderTextColor="#ffffff"
-            autoFocus={false}
-            style={tw`w-full p-page bg-additional text-center rounded-md text-white text-base font-bold italic`}
-          />
+    <>
+      <NavigationHeader navigation={navigation} />
+      <View style={tw`flex-1 bg-primary`}>
+        <Text style={tw`text-white uppercase text-sm font-bold p-page`}>Account Information</Text>
+        <KeyboardAvoidingView behavior="padding">
+          <LinearGradient
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            colors={['#4630EB', '#6453E2']}
+            style={tw`px-page`}
+          >
+            <View style={tw`flex flex-row justify-between items-center`}>
+              <Text style={tw`text-tertiary text-base uppercase font-bold italic`}>Username</Text>
+              <TextInput
+                onChangeText={(text) => setUsername(text)}
+                value={username ? username : null}
+                placeholder={!username ? 'Change Username' : null}
+                placeholderTextColor="#BCC3CD"
+                autoFocus={false}
+                style={tw`w-[75%] text-tertiary text-right font-bold italic py-space`}
+              />
+            </View>
+          </LinearGradient>
+          <View
+            style={tw`bg-secondary/50 px-page py-space mt-[10px] flex-row justify-between items-center`}
+          >
+            <Text style={tw`text-tertiary text-base uppercase font-bold italic`}>Email</Text>
+            <Text style={tw`text-tertiary italic`}>{user.email}</Text>
+          </View>
+        </KeyboardAvoidingView>
+        <View style={tw`mt-[30px]`}>
+          <View style={tw`bg-secondary/50 px-page py-space flex-row justify-between items-center`}>
+            <Text style={tw`text-tertiary text-base uppercase font-bold italic`}>User Id</Text>
+            <Text style={tw`text-tertiary italic`}>{user.uid}</Text>
+          </View>
+          <View
+            style={tw`bg-secondary/50 px-page py-space mt-[10px] flex-row justify-between items-center`}
+          >
+            <Text style={tw`text-tertiary text-base uppercase font-bold italic`}>Anonymous</Text>
+            <Text style={tw`text-tertiary italic`}>{user.isAnonymous.toString()}</Text>
+          </View>
+          <View
+            style={tw`bg-secondary/50 px-page py-space mt-[10px] flex-row justify-between items-center`}
+          >
+            <Text style={tw`text-tertiary text-base uppercase font-bold italic`}>Os</Text>
+            <Text style={tw`text-tertiary italic`}>{Platform.Version}</Text>
+          </View>
         </View>
-      </KeyboardAvoidingView>
-      <View style={tw`mt-[30px]`}>
-        <View style={tw`bg-secondary/50 p-page flex-row justify-between items-center rounded-md`}>
-          <Text style={tw`text-tertiary text-base uppercase font-bold italic`}>User Id</Text>
-          <Text style={tw`text-tertiary italic`}>{user.uid}</Text>
-        </View>
-        <View
-          style={tw`bg-secondary/50 p-page mt-[10px] flex-row justify-between items-center rounded-md`}
-        >
-          <Text style={tw`text-tertiary text-base uppercase font-bold italic`}>Email</Text>
-          <Text style={tw`text-tertiary italic`}>{user.email}</Text>
-        </View>
-        <View
-          style={tw`bg-secondary/50 p-page mt-[10px] flex-row justify-between items-center rounded-md`}
-        >
-          <Text style={tw`text-tertiary text-base uppercase font-bold italic`}>Anonymous</Text>
-          <Text style={tw`text-tertiary italic`}>{user.isAnonymous.toString()}</Text>
-        </View>
-        <View
-          style={tw`bg-secondary/50 p-page mt-[10px] flex-row justify-between items-center rounded-md`}
-        >
-          <Text style={tw`text-tertiary text-base uppercase font-bold italic`}>Os</Text>
-          <Text style={tw`text-tertiary italic`}>{Platform.Version}</Text>
+        <View style={tw`flex-1 justify-end mb-[30px]`}>
+          <TouchableHighlight
+            onPress={SignUserOut}
+            style={tw`bg-warning px-page py-space mt-[30px]`}
+          >
+            <Text style={tw`text-white uppercase font-bold italic text-center`}>Log out</Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={DeleteAccount}
+            style={tw`bg-secondary px-page py-space mt-[10px]`}
+          >
+            <Text style={tw`text-white uppercase font-bold italic text-center`}>
+              delete account
+            </Text>
+          </TouchableHighlight>
         </View>
       </View>
-      <TouchableHighlight
-        onPress={SignUserOut}
-        style={tw`bg-secondary p-page mt-[30px] rounded-md`}
-      >
-        <Text style={tw`text-white uppercase text-base font-bold italic text-center`}>Log out</Text>
-      </TouchableHighlight>
-      <TouchableHighlight
-        onPress={DeleteAccount}
-        style={tw`bg-warning p-page mt-[10px] rounded-md`}
-      >
-        <Text style={tw`text-white uppercase text-base font-bold italic text-center`}>
-          delete account
-        </Text>
-      </TouchableHighlight>
-    </View>
+    </>
   )
 }
