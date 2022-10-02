@@ -7,6 +7,7 @@ import Welcome from '../Screens/Welcome'
 import LogIn from '../Screens/LogIn'
 import Register from '../Screens/Register'
 import MainApp from '../Screens/MainApp'
+import Settings from '../Screens/Settings'
 
 const Stack = createNativeStackNavigator()
 
@@ -24,6 +25,7 @@ const MainStackNavigator = () => {
         <Stack.Screen name="LogIn" component={LogIn} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="MainApp" component={MainApp} />
+        <Stack.Screen name="Settings" component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>
   )

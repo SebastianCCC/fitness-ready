@@ -8,6 +8,7 @@ import { CommonActions } from '@react-navigation/native'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema } from '../schema/LogInSchema'
+import { LinearGradient } from 'expo-linear-gradient'
 
 export default function LogIn({ navigation }) {
   const [err, setErr] = useState(null)
@@ -89,14 +90,18 @@ export default function LogIn({ navigation }) {
                 {errors.email?.message || errors.password?.message || 'Wrong password or email'}
               </Text>
             )}
-            <TouchableHighlight
-              onPress={handleSubmit(SignUserIn)}
-              style={tw`w-[100%] bg-additional p-page m-auto mt-[30px] rounded-md`}
+            <LinearGradient
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              colors={['#4630EB', '#6453E2']}
+              style={tw`w-[100%] m-auto mt-[30px] rounded-md`}
             >
-              <Text style={tw`text-tertiary uppercase text-base font-bold italic text-center`}>
-                Login
-              </Text>
-            </TouchableHighlight>
+              <TouchableHighlight onPress={handleSubmit(SignUserIn)} style={tw`p-page`}>
+                <Text style={tw`text-tertiary uppercase text-base font-bold italic text-center`}>
+                  Login
+                </Text>
+              </TouchableHighlight>
+            </LinearGradient>
           </KeyboardAvoidingView>
         </View>
       </View>
