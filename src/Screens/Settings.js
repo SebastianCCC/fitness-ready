@@ -73,6 +73,7 @@ export default function Settings({ navigation }) {
               <View style={tw`flex flex-row justify-between items-center`}>
                 <Text style={tw`text-tertiary text-base uppercase font-bold italic`}>Username</Text>
                 <TextInput
+                  keyboardAppearance="dark"
                   onChangeText={(text) => setUsername(text)}
                   value={username ? username : null}
                   placeholder={!username ? 'Change Username' : null}
