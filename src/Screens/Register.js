@@ -48,6 +48,8 @@ export default function Register({ navigation }) {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
+                    keyboardType="email-address"
+                    keyboardAppearance="dark"
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
@@ -66,6 +68,7 @@ export default function Register({ navigation }) {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
+                    keyboardAppearance="dark"
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
@@ -85,6 +88,7 @@ export default function Register({ navigation }) {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
+                    keyboardAppearance="dark"
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
