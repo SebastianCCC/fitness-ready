@@ -33,14 +33,14 @@ function Tabs() {
           tabBarIcon: ({ color }) => <AddWorkoutIcon color={color} />,
         }}
       />
-      <Tab.Screen
+      {/*       <Tab.Screen
         name="Status"
         component={AddWorkout}
         options={{
           tabBarLabel: <Text style={tw`text-[12px] font-extrabold uppercase italic`}>Status</Text>,
           tabBarIcon: ({ color }) => <StatusIcon color={color} />,
         }}
-      />
+      /> */}
     </Tab.Navigator>
   )
 }
