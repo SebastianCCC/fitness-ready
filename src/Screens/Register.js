@@ -19,19 +19,9 @@ export default function Register({ navigation }) {
     resolver: yupResolver(schema),
   })
   const RegisterUser = ({ email, password }) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigation.navigate('MainApp')
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 1,
-            routes: [{ name: 'MainApp' }],
-          })
-        )
-      })
-      .catch((error) => {
-        console.log(error.message)
-      })
+    createUserWithEmailAndPassword(auth, email, password).catch((error) => {
+      console.log(error.message)
+    })
   }
   return (
     <>

@@ -1,9 +1,176 @@
-import { Text, View } from 'react-native'
+import {
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+  TouchableHighlight,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native'
+import { tw } from '../../tailwind'
+import { useContext, useEffect, useState } from 'react'
+import { StateContext } from '../Util/StateContext'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { schema } from '../schema/AddWorkoutSchema'
+import { LinearGradient } from 'expo-linear-gradient'
+import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
+import db from '../../firebase'
+import ExerciseCard from '../Components/Main/ExerciseCard'
+import { BiggerPlusIcon, MinusIcon } from '../Components/Main/Assets'
 
-export default function AddWorkout() {
+export default function AddWorkout({ navigation: { navigate } }) {
+  const days = [
+    {
+      day: 'monday',
+      short: 'mon',
+    },
+    {
+      day: 'tuesday',
+      short: 'tue',
+    },
+    {
+      day: 'wednesday',
+      short: 'wed',
+    },
+    {
+      day: 'thursday',
+      short: 'thu',
+    },
+    {
+      day: 'friday',
+      short: 'fri',
+    },
+    {
+      day: 'saturday',
+      short: 'sat',
+    },
+    {
+      day: 'sunday',
+      short: 'sun',
+    },
+  ]
+  const { user, workouts, setWorkouts } = useContext(StateContext)
+  const [workoutName, setWorkoutName] = useState('')
+  const [workoutDay, setWorkoutDay] = useState(days[0].day)
+  const [exercises, setExercises] = useState([])
+  const [exerciseCount, setExerciseCount] = useState(1)
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  })
+  console.log(exercises)
+  const today = new Date().getDay()
+
+  const createWorkout = async ({ name }) => {
+    const path = doc(collection(db, 'users', user.uid, 'workouts'))
+    await setDoc(path, {
+      name,
+      exercises,
+      weekDay: workoutDay,
+    }).then(() => {
+      navigate('SplashScreen')
+    })
+  }
+
   return (
-    <View>
-      <Text>Add Workout Page</Text>
-    </View>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={tw`flex-1 bg-primary`}>
+        <View style={tw`p-page`}>
+          <View style={tw`w-full p-page bg-secondary/25 rounded-md text-white`}>
+            {Boolean(Object.keys(errors).length) && (
+              <Text style={tw`pb-[8px] text-warning text-sm`}>{errors.name?.message}</Text>
+            )}
+            <Controller
+              control={control}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  keyboardAppearance="dark"
+                  placeholder="Name Your Workout"
+                  placeholderTextColor="#BCC3CD"
+                  autoCorrect={false}
+                  autoFocus={true}
+                  style={tw`w-full text-white`}
+                />
+              )}
+              name="name"
+            />
+          </View>
+        </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={tw`flex-grow-0`}>
+          <View style={tw`flex flex-row w-full pl-page`}>
+            {days.map(({ day, short }, i) => {
+              return (
+                <View
+                  key={i}
+                  style={tw`${
+                    workoutDay == day ? 'bg-additional' : 'bg-secondary/25'
+                  } rounded-md mr-2`}
+                >
+                  <TouchableWithoutFeedback
+                    onPress={(e) => {
+                      const path = e.target._internalFiberInstanceHandleDEV.child.pendingProps
+                      setWorkoutDay(path == short && day)
+                    }}
+                  >
+                    <Text style={tw`w-[72px] px-page py-space text-white uppercase text-center`}>
+                      {short}
+                    </Text>
+                  </TouchableWithoutFeedback>
+                </View>
+              )
+            })}
+          </View>
+        </ScrollView>
+        <View style={tw`w-full my-[30px] p-page`}>
+          <View style={tw`flex flex-row justify-between`}>
+            <Text style={tw`text-lg uppercase italic text-white font-bold mb-[7px]`}>
+              Exercises
+            </Text>
+            <View style={tw`flex flex-row`}>
+              <TouchableWithoutFeedback
+                onPress={() => setExerciseCount((prev) => (prev > 1 ? prev - 1 : 1))}
+              >
+                <View style={tw`mr-2`}>
+                  <MinusIcon />
+                </View>
+              </TouchableWithoutFeedback>
+              <TouchableWithoutFeedback onPress={() => setExerciseCount((prev) => prev + 1)}>
+                <View>
+                  <BiggerPlusIcon />
+                </View>
+              </TouchableWithoutFeedback>
+            </View>
+          </View>
+          <ScrollView>
+            <View style={tw`pb-[50px]`}>
+              {Array.from(Array(exerciseCount)).map((data, i) => {
+                return <ExerciseCard func={setExercises} key={i} id={i} />
+              })}
+            </View>
+          </ScrollView>
+        </View>
+        <View style={tw`absolute bottom-0 w-full p-page`}>
+          <LinearGradient
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            colors={['#4630EB', '#6453E2']}
+            style={tw`w-[100%] m-auto mt-[30px] rounded-md`}
+          >
+            <TouchableHighlight onPress={handleSubmit(createWorkout)} style={tw`p-page`}>
+              <Text style={tw`text-tertiary uppercase text-base font-bold italic text-center`}>
+                Done
+              </Text>
+            </TouchableHighlight>
+          </LinearGradient>
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
   )
 }

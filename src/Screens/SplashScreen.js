@@ -7,20 +7,30 @@ import db, { auth } from '../../firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 import { CommonActions } from '@react-navigation/native'
 import { StateContext } from '../Util/StateContext'
+import { collection, getDocs } from 'firebase/firestore'
 
 export default function SplashScreen({ navigation }) {
-  const { setUser } = useContext(StateContext)
+  const { setUser, workouts, setWorkouts } = useContext(StateContext)
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(user)
-        navigation.navigate('MainApp')
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 1,
-            routes: [{ name: 'MainApp' }],
+        setWorkouts([])
+        const fetchData = async () => {
+          const querySnapshot = await getDocs(collection(db, 'users', user.uid, 'workouts'))
+          querySnapshot.forEach((doc) => {
+            setWorkouts((prev) => [...prev, { id: doc.id, ...doc.data() }])
           })
-        )
+        }
+        fetchData().then(() => {
+          setUser(user)
+          navigation.navigate('MainApp')
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 1,
+              routes: [{ name: 'MainApp' }],
+            })
+          )
+        })
       }
       if (!user) {
         navigation.navigate('Welcome')
