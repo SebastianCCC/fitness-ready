@@ -50,8 +50,9 @@ export default function AddWorkout({ navigation: { navigate } }) {
       short: 'sun',
     },
   ]
+  const dataUnits = [{ u: 'hours' }, { u: 'minutes' }, { u: 'seconds' }]
   const { user, workouts, setWorkouts } = useContext(StateContext)
-  const [workoutName, setWorkoutName] = useState('')
+  const [units, setUnits] = useState(dataUnits[1].u)
   const [workoutDay, setWorkoutDay] = useState(days[0].day)
   const [exercises, setExercises] = useState([])
   const [exerciseCount, setExerciseCount] = useState(1)
@@ -65,12 +66,13 @@ export default function AddWorkout({ navigation: { navigate } }) {
   console.log(exercises)
   const today = new Date().getDay()
 
-  const createWorkout = async ({ name }) => {
+  const createWorkout = async ({ name, time }) => {
     const path = doc(collection(db, 'users', user.uid, 'workouts'))
     await setDoc(path, {
       name,
       exercises,
       weekDay: workoutDay,
+      date: { time, units },
     }).then(() => {
       navigate('SplashScreen')
     })
@@ -81,7 +83,7 @@ export default function AddWorkout({ navigation: { navigate } }) {
       <View style={tw`flex-1 bg-primary`}>
         <View style={tw`p-page`}>
           <View style={tw`w-full p-page bg-secondary/25 rounded-md text-white`}>
-            {Boolean(Object.keys(errors).length) && (
+            {errors.name && (
               <Text style={tw`pb-[8px] text-warning text-sm`}>{errors.name?.message}</Text>
             )}
             <Controller
@@ -94,7 +96,6 @@ export default function AddWorkout({ navigation: { navigate } }) {
                   keyboardAppearance="dark"
                   placeholder="Name Your Workout"
                   placeholderTextColor="#BCC3CD"
-                  autoCorrect={false}
                   autoFocus={true}
                   style={tw`w-full text-white`}
                 />
@@ -128,27 +129,82 @@ export default function AddWorkout({ navigation: { navigate } }) {
             })}
           </View>
         </ScrollView>
+        <View style={tw`flex flex-row items-center p-page pt-[30px]`}>
+          <View style={tw`w-[20%] p-page bg-secondary/25 rounded-md text-white`}>
+            <Controller
+              control={control}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  keyboardType="numeric"
+                  keyboardAppearance="dark"
+                  contextMenuHidden={true}
+                  placeholder="Time"
+                  placeholderTextColor="#BCC3CD"
+                  autoFocus={false}
+                  style={tw`w-full text-tertiary text-center italic`}
+                />
+              )}
+              name="time"
+            />
+          </View>
+          {errors.time && <Text style={tw`text-warning text-sm ml-2`}>{errors.time?.message}</Text>}
+        </View>
+        <View style={tw`flex flex-row w-full pl-page`}>
+          {dataUnits.map(({ u }, i) => {
+            return (
+              <View
+                key={i}
+                style={tw`${units == u ? 'bg-additional' : 'bg-secondary/25'} rounded-md mr-2`}
+              >
+                <TouchableWithoutFeedback
+                  onPress={(e) => {
+                    const path = e.target._internalFiberInstanceHandleDEV.child.pendingProps
+                    setUnits(path == u && u)
+                  }}
+                >
+                  <Text style={tw`w-[100px] px-page py-space text-white uppercase text-center`}>
+                    {u}
+                  </Text>
+                </TouchableWithoutFeedback>
+              </View>
+            )
+          })}
+        </View>
         <View style={tw`w-full my-[30px] p-page`}>
-          <View style={tw`flex flex-row justify-between`}>
+          <View style={tw`flex flex-row justify-end`}>
+            <TouchableWithoutFeedback
+              onPress={() => setExerciseCount((prev) => (prev > 1 ? prev - 1 : 1))}
+            >
+              <View style={tw`mr-2`}>
+                <MinusIcon />
+              </View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={() => setExerciseCount((prev) => prev + 1)}>
+              <View>
+                <BiggerPlusIcon />
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+          <View style={tw`flex flex-row justify-between pt-page`}>
             <Text style={tw`text-lg uppercase italic text-white font-bold mb-[7px]`}>
               Exercises
             </Text>
-            <View style={tw`flex flex-row`}>
-              <TouchableWithoutFeedback
-                onPress={() => setExerciseCount((prev) => (prev > 1 ? prev - 1 : 1))}
-              >
-                <View style={tw`mr-2`}>
-                  <MinusIcon />
-                </View>
-              </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback onPress={() => setExerciseCount((prev) => prev + 1)}>
-                <View>
-                  <BiggerPlusIcon />
-                </View>
-              </TouchableWithoutFeedback>
+            <View style={tw`flex flex-row justify-around w-[45%]`}>
+              <Text style={tw`text-lg uppercase italic text-tertiary font-bold mb-[7px]`}>
+                Reps
+              </Text>
+              <Text style={tw`text-lg uppercase italic text-tertiary font-bold mb-[7px]`}>
+                Sets
+              </Text>
             </View>
           </View>
-          <ScrollView>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={tw`${errors.name || errors.time ? 'h-[35%]' : 'h-[40%]'}`}
+          >
             <View style={tw`pb-[50px]`}>
               {Array.from(Array(exerciseCount)).map((data, i) => {
                 return <ExerciseCard func={setExercises} key={i} id={i} />
