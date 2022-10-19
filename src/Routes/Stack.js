@@ -8,6 +8,7 @@ import LogIn from '../Screens/LogIn'
 import Register from '../Screens/Register'
 import MainApp from '../Screens/MainApp'
 import Settings from '../Screens/Settings'
+import WorkoutDetail from '../Screens/WorkoutDetail'
 
 const Stack = createNativeStackNavigator()
 
@@ -26,6 +27,7 @@ const MainStackNavigator = () => {
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="MainApp" component={MainApp} />
         <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="WorkoutDetail" component={WorkoutDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   )

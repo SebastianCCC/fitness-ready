@@ -1,5 +1,5 @@
 import { View, Text, TouchableHighlight, KeyboardAvoidingView, TextInput } from 'react-native'
-import React, { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { tw } from '../../tailwind'
 import NavigationHeader from '../Components/Header/NavigationHeader'
 import db, { auth } from '../../firebase'
@@ -9,8 +9,11 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema } from '../schema/LogInSchema'
 import { LinearGradient } from 'expo-linear-gradient'
+import { StateContext } from '../Util/StateContext'
+import { collection, getDocs } from 'firebase/firestore'
 
 export default function LogIn({ navigation }) {
+  const { setUser, workouts, setWorkouts } = useContext(StateContext)
   const [err, setErr] = useState(null)
   const {
     control,
@@ -20,21 +23,11 @@ export default function LogIn({ navigation }) {
     resolver: yupResolver(schema),
   })
   const SignUserIn = ({ email, password }) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigation.navigate('MainApp')
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 1,
-            routes: [{ name: 'MainApp' }],
-          })
-        )
-      })
-      .catch((error) => {
-        console.log(error.code)
-        setErr(error.code)
-        setTimeout(() => setErr(null), 5000)
-      })
+    signInWithEmailAndPassword(auth, email, password).catch((error) => {
+      console.log(error.code)
+      setErr(error.code)
+      setTimeout(() => setErr(null), 5000)
+    })
   }
   return (
     <>
@@ -51,6 +44,8 @@ export default function LogIn({ navigation }) {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
+                    keyboardType="email-address"
+                    keyboardAppearance="dark"
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
@@ -69,6 +64,7 @@ export default function LogIn({ navigation }) {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
+                    keyboardAppearance="dark"
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}

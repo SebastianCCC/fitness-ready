@@ -19,19 +19,9 @@ export default function Register({ navigation }) {
     resolver: yupResolver(schema),
   })
   const RegisterUser = ({ email, password }) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigation.navigate('MainApp')
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 1,
-            routes: [{ name: 'MainApp' }],
-          })
-        )
-      })
-      .catch((error) => {
-        console.log(error.message)
-      })
+    createUserWithEmailAndPassword(auth, email, password).catch((error) => {
+      console.log(error.message)
+    })
   }
   return (
     <>
@@ -48,6 +38,8 @@ export default function Register({ navigation }) {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
+                    keyboardType="email-address"
+                    keyboardAppearance="dark"
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
@@ -66,6 +58,7 @@ export default function Register({ navigation }) {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
+                    keyboardAppearance="dark"
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
@@ -85,6 +78,7 @@ export default function Register({ navigation }) {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
+                    keyboardAppearance="dark"
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
