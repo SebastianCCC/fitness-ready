@@ -1,13 +1,13 @@
 import { View, Text, TouchableHighlight, KeyboardAvoidingView, TextInput } from 'react-native'
 import React, { useState } from 'react'
-import { tw } from '../../tailwind'
-import NavigationHeader from '../Components/Header/NavigationHeader'
-import db, { auth } from '../../firebase'
+import { tw } from '../../../tailwind'
+import NavigationHeader from '../../Components/Header/NavigationHeader'
+import db, { auth } from '../../../firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { CommonActions } from '@react-navigation/native'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { schema } from '../schema/RegisterSchema'
+import { schema } from '../../schema/RegisterSchema'
 import { LinearGradient } from 'expo-linear-gradient'
 
 export default function Register({ navigation }) {

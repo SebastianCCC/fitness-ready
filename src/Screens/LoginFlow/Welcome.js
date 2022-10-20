@@ -1,6 +1,6 @@
 import { StatusBar, Text, TouchableHighlight, View } from 'react-native'
-import { tw } from '../../tailwind'
-import { LogoIcon } from '../../assets'
+import { tw } from '../../../tailwind'
+import { LogoIcon } from '../../../assets'
 import { LinearGradient } from 'expo-linear-gradient'
 
 export default function Welcome({ navigation: { navigate } }) {

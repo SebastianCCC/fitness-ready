@@ -3,12 +3,11 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 
 import SplashScreen from '../Screens/SplashScreen'
-import Welcome from '../Screens/Welcome'
-import LogIn from '../Screens/LogIn'
-import Register from '../Screens/Register'
-import MainApp from '../Screens/MainApp'
+import Welcome from '../Screens/LoginFlow/Welcome'
+import LogIn from '../Screens/LoginFlow/LogIn'
+import Register from '../Screens/LoginFlow/Register'
+import MainApp from '../Screens/LoginFlow/MainApp'
 import Settings from '../Screens/Settings'
-import WorkoutDetail from '../Screens/WorkoutDetail'
 
 const Stack = createNativeStackNavigator()
 
@@ -27,7 +26,6 @@ const MainStackNavigator = () => {
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="MainApp" component={MainApp} />
         <Stack.Screen name="Settings" component={Settings} />
-        <Stack.Screen name="WorkoutDetail" component={WorkoutDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   )
