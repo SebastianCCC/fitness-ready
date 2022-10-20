@@ -1,20 +1,29 @@
 import { Text, View, TouchableWithoutFeedback } from 'react-native'
 import Svg, { Circle, Rect, Path } from 'react-native-svg'
 import { tw } from '../../../tailwind'
-import { LogoIcon, BellIcon, SettingsIcon } from './Assets'
+import { LogoIcon, BellIcon, SettingsIcon, MenuIcon } from './Assets'
 
-export default function Header({ navigation }) {
+export default function Header({ navigate, toggle }) {
   return (
     <View style={tw`bg-primary flex flex-row justify-between p-page items-center bg-[#21272E]`}>
       <LogoIcon />
       <View style={tw`flex flex-row items-center`}>
-        <BellIcon />
+        {toggle && (
+          <TouchableWithoutFeedback onPress={() => toggle((prev) => !prev)}>
+            <View>
+              <MenuIcon />
+            </View>
+          </TouchableWithoutFeedback>
+        )}
+        <View style={tw`mx-4`}>
+          <BellIcon />
+        </View>
         <TouchableWithoutFeedback
           onPress={() => {
-            navigation.navigate('Settings')
+            navigate('Settings')
           }}
         >
-          <View style={tw`ml-4`}>
+          <View>
             <SettingsIcon />
           </View>
         </TouchableWithoutFeedback>
