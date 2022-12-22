@@ -17,7 +17,7 @@ export default function WorkoutCard({ data, navigate }) {
           style={tw`px-page py-space`}
         >
           <Text style={tw`text-white text-base uppercase italic font-bold`}>
-            {data.name.length >= 12 ? data.name.slice(0, 12) + '...' : data.name}
+            {data.name.length >= 10 ? data.name.slice(0, 10) + '...' : data.name}
           </Text>
         </TouchableHighlight>
       </LinearGradient>

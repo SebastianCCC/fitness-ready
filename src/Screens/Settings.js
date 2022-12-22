@@ -24,13 +24,7 @@ export default function Settings({ navigation }) {
   const SignUserOut = () => {
     signOut(auth)
       .then(() => {
-        navigation.navigate('Welcome')
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 1,
-            routes: [{ name: 'Welcome' }],
-          })
-        )
+        navigation.navigate('SplashScreen')
       })
       .catch((error) => {
         console.log(error.message)
