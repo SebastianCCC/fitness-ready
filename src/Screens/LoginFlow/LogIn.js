@@ -32,7 +32,7 @@ export default function LogIn({ navigation }) {
   return (
     <>
       <NavigationHeader navigation={navigation} />
-      <View style={tw`flex-1 bg-[#21272E] p-page`}>
+      <View style={tw`flex-1 bg-screen p-page`}>
         <Text style={tw`text-white uppercase text-base font-bold italic text-center`}>
           Welcome Back
         </Text>
@@ -52,7 +52,7 @@ export default function LogIn({ navigation }) {
                     placeholder="Email Address"
                     placeholderTextColor="#BCC3CD"
                     style={tw`w-full p-page bg-secondary/25 rounded-md text-white border ${
-                      errors.email ? 'border-warning' : 'border-[#21272E]'
+                      errors.email ? 'border-warning' : 'border-screen'
                     }`}
                   />
                 )}
@@ -71,7 +71,7 @@ export default function LogIn({ navigation }) {
                     placeholder="Password"
                     placeholderTextColor="#BCC3CD"
                     style={tw`w-full p-page bg-secondary/25 rounded-md text-white border ${
-                      errors.password ? 'border-warning' : 'border-[#21272E]'
+                      errors.password ? 'border-warning' : 'border-screen'
                     }`}
                     secureTextEntry
                   />

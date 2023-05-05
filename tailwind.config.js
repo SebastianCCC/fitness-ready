@@ -8,6 +8,7 @@ module.exports = {
       sec_linear: '#6453E2',
       warning: '#BD3F3F',
       white: '#ffffff',
+      screen: '#21272E',
       // ...
     },
     padding: {

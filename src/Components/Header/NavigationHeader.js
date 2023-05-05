@@ -7,7 +7,7 @@ import { CommonActions } from '@react-navigation/native'
 export default function NavigationHeader({ navigation, userName, currentUsername, save }) {
   return (
     <View
-      style={tw`w-full bg-primary flex flex-row justify-between p-page items-center bg-[#21272E] text-white`}
+      style={tw`w-full bg-primary flex flex-row justify-between p-page items-center bg-screen text-white`}
     >
       <TouchableWithoutFeedback
         onPress={() => {
