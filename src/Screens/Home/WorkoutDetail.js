@@ -8,6 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore'
 import db from '../../../firebase'
 import Modal from '../../Components/Main/Modal'
+import Button from '../../Components/Main/Button'
 
 export default function WorkoutDetail({ route, navigation: { navigate } }) {
   const { user, workouts, setWorkouts } = useContext(StateContext)
@@ -51,14 +52,11 @@ export default function WorkoutDetail({ route, navigation: { navigate } }) {
               <Text style={tw`text-tertiary text-base uppercase font-bold italic`}>id</Text>
               <Text style={tw`text-tertiary italic`}>{id}</Text>
             </View>
-            <TouchableHighlight
-              onPress={DeleteWorkout}
-              style={tw`bg-white p-page w-full rounded-md`}
-            >
+            <Button handlePress={DeleteWorkout}>
               <Text style={tw`text-primary text-center text-base uppercase italic font-bold`}>
                 Delete Workout
               </Text>
-            </TouchableHighlight>
+            </Button>
           </>
         </Modal>
         <Text

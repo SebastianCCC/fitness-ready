@@ -19,6 +19,7 @@ import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
 import db from '../../firebase'
 import ExerciseCard from '../Components/Main/ExerciseCard'
 import { BiggerPlusIcon, MinusIcon } from '../Components/Main/Assets'
+import Button from '../Components/Main/Button'
 
 export default function AddWorkout({ navigation: { navigate } }) {
   const days = [
@@ -117,9 +118,7 @@ export default function AddWorkout({ navigation: { navigate } }) {
                       workoutDay == day ? 'bg-additional' : 'bg-secondary/25'
                     } rounded-md mr-2`}
                   >
-                    <TouchableWithoutFeedback
-                      onPress={() => setWorkoutDay(day)}
-                    >
+                    <TouchableWithoutFeedback onPress={() => setWorkoutDay(day)}>
                       <Text style={tw`w-[72px] px-page py-space text-white uppercase text-center`}>
                         {short}
                       </Text>
@@ -161,9 +160,7 @@ export default function AddWorkout({ navigation: { navigate } }) {
                   key={i}
                   style={tw`${units == u ? 'bg-additional' : 'bg-secondary/25'} rounded-md mr-2`}
                 >
-                  <TouchableWithoutFeedback
-                    onPress={() => setUnits(u)}
-                  >
+                  <TouchableWithoutFeedback onPress={() => setUnits(u)}>
                     <Text style={tw`w-[100px] px-page py-space text-white uppercase text-center`}>
                       {u}
                     </Text>
@@ -212,18 +209,11 @@ export default function AddWorkout({ navigation: { navigate } }) {
             </ScrollView>
           </View>
           <View style={tw`absolute bottom-0 w-full p-page`}>
-            <LinearGradient
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              colors={['#4630EB', '#6453E2']}
-              style={tw`w-[100%] m-auto mt-[30px] rounded-md`}
-            >
-              <TouchableHighlight onPress={handleSubmit(createWorkout)} style={tw`p-page`}>
-                <Text style={tw`text-tertiary uppercase text-base font-bold italic text-center`}>
-                  Done
-                </Text>
-              </TouchableHighlight>
-            </LinearGradient>
+            <Button handlePress={handleSubmit(createWorkout)} type="linear">
+              <Text style={tw`text-tertiary text-center text-base uppercase italic font-bold`}>
+                Done
+              </Text>
+            </Button>
           </View>
         </View>
       </TouchableWithoutFeedback>
