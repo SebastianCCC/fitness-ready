@@ -118,10 +118,7 @@ export default function AddWorkout({ navigation: { navigate } }) {
                     } rounded-md mr-2`}
                   >
                     <TouchableWithoutFeedback
-                      onPress={(e) => {
-                        const path = e.target._internalFiberInstanceHandleDEV.child.pendingProps
-                        setWorkoutDay(path == short && day)
-                      }}
+                      onPress={() => setWorkoutDay(day)}
                     >
                       <Text style={tw`w-[72px] px-page py-space text-white uppercase text-center`}>
                         {short}
@@ -165,10 +162,7 @@ export default function AddWorkout({ navigation: { navigate } }) {
                   style={tw`${units == u ? 'bg-additional' : 'bg-secondary/25'} rounded-md mr-2`}
                 >
                   <TouchableWithoutFeedback
-                    onPress={(e) => {
-                      const path = e.target._internalFiberInstanceHandleDEV.child.pendingProps
-                      setUnits(path == u && u)
-                    }}
+                    onPress={() => setUnits(u)}
                   >
                     <Text style={tw`w-[100px] px-page py-space text-white uppercase text-center`}>
                       {u}
