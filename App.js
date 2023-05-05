@@ -5,7 +5,7 @@ import { StateProvider } from './src/Util/StateContext'
 
 export default function App() {
   return (
-    <SafeAreaView style={tw`flex-1 bg-[#21272E]`}>
+    <SafeAreaView style={tw`flex-1 bg-screen`}>
       <StateProvider>
         <Stack />
         <StatusBar barStyle="light-content" />

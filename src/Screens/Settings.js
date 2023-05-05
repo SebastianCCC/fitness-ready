@@ -16,6 +16,7 @@ import { CommonActions } from '@react-navigation/native'
 import { auth } from '../../firebase'
 import NavigationHeader from '../Components/Header/NavigationHeader'
 import { LinearGradient } from 'expo-linear-gradient'
+import Button from '../Components/Main/Button'
 
 export default function Settings({ navigation }) {
   const { user, setUser } = useContext(StateContext)
@@ -106,12 +107,11 @@ export default function Settings({ navigation }) {
             </View>
           </View>
           <View style={tw`flex-1 justify-end mb-[15px]`}>
-            <TouchableHighlight
-              onPress={SignUserOut}
-              style={tw`bg-white p-page rounded-md mt-[30px]`}
-            >
-              <Text style={tw`uppercase font-bold italic text-center`}>Log out</Text>
-            </TouchableHighlight>
+            <Button handlePress={SignUserOut}>
+              <Text style={tw`text-primary text-center text-base uppercase italic font-bold`}>
+                Log out
+              </Text>
+            </Button>
           </View>
         </View>
       </TouchableWithoutFeedback>

@@ -44,7 +44,7 @@ export default function SplashScreen({ navigation }) {
     })
   }, [])
   return (
-    <View style={tw`flex-1 bg-[#21272E] p-page`}>
+    <View style={tw`flex-1 bg-screen p-page`}>
       <View style={tw`flex-1 flex-row justify-center items-center`}>
         <LogoIcon />
         <Text style={tw`text-white uppercase text-[22px] font-bold italic text-center p-page`}>
