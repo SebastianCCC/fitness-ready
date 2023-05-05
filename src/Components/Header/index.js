@@ -5,7 +5,7 @@ import { LogoIcon, BellIcon, SettingsIcon, MenuIcon } from './Assets'
 
 export default function Header({ navigate, toggle }) {
   return (
-    <View style={tw`bg-primary flex flex-row justify-between p-page items-center bg-[#21272E]`}>
+    <View style={tw`bg-primary flex flex-row justify-between p-page items-center bg-screen`}>
       <LogoIcon />
       <View style={tw`flex flex-row items-center`}>
         {toggle && (

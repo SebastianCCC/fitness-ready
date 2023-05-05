@@ -26,7 +26,7 @@ export default function Register({ navigation }) {
   return (
     <>
       <NavigationHeader navigation={navigation} />
-      <View style={tw`flex-1 bg-[#21272E] p-page`}>
+      <View style={tw`flex-1 bg-screen p-page`}>
         <Text style={tw`text-white uppercase text-base font-bold italic text-center`}>
           Welcome To Fitness Ready
         </Text>
@@ -46,7 +46,7 @@ export default function Register({ navigation }) {
                     placeholder="Email Address"
                     placeholderTextColor="#BCC3CD"
                     style={tw`w-full p-page bg-secondary/25 rounded-md text-white border ${
-                      errors.email ? 'border-warning' : 'border-[#21272E]'
+                      errors.email ? 'border-warning' : 'border-screen'
                     }`}
                   />
                 )}
@@ -65,7 +65,7 @@ export default function Register({ navigation }) {
                     placeholder="Password"
                     placeholderTextColor="#BCC3CD"
                     style={tw`w-full p-page bg-secondary/25 rounded-md text-white border ${
-                      errors.password ? 'border-warning' : 'border-[#21272E]'
+                      errors.password ? 'border-warning' : 'border-screen'
                     }`}
                     secureTextEntry
                   />
@@ -85,7 +85,7 @@ export default function Register({ navigation }) {
                     placeholder="Confirm Password"
                     placeholderTextColor="#BCC3CD"
                     style={tw`w-full p-page bg-secondary/25 rounded-md text-white border ${
-                      errors.confirmPassword ? 'border-warning' : 'border-[#21272E]'
+                      errors.confirmPassword ? 'border-warning' : 'border-screen'
                     }`}
                     secureTextEntry
                   />
