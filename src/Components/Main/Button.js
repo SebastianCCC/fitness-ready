@@ -8,7 +8,8 @@ export default function Button({
   disabled = false,
   loading = false,
   type,
-  bgColor = 'white',
+  bgColor = '#FFFFFF',
+  style,
   handlePress,
 }) {
   const typeOfButton = () => {
@@ -19,14 +20,14 @@ export default function Button({
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             colors={['#4630EB', '#6453E2']}
-            style={tw`p-page rounded-md`}
+            style={tw`p-page rounded-md w-full ${style}`}
           >
             {children}
           </LinearGradient>
         )
       }
       default: {
-        return <View style={tw`bg-${bgColor} p-page rounded-md`}>{children}</View>
+        return <View style={tw`bg-[${bgColor}] p-page rounded-md w-full ${style}`}>{children}</View>
       }
     }
   }

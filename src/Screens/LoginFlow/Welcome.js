@@ -2,6 +2,8 @@ import { StatusBar, Text, TouchableHighlight, View } from 'react-native'
 import { tw } from '../../../tailwind'
 import { LogoIcon } from '../../../assets'
 import { LinearGradient } from 'expo-linear-gradient'
+import Button from '../../Components/Main/Button'
+import { addOpacity } from '../../Util/AddOpacity'
 
 export default function Welcome({ navigation: { navigate } }) {
   return (
@@ -13,32 +15,21 @@ export default function Welcome({ navigation: { navigate } }) {
         </Text>
       </View>
       <View style={tw`mt-80`}>
-        <Text style={tw`text-additional uppercase text-base font-bold italic text-center p-page`}>
-          Welcome to Fitness Ready
+        <Text style={tw`text-white uppercase text-[13px] font-bold text-center pb-page`}>
+          Try Fitness Ready and start tracing your progress today!
         </Text>
-        <Text style={tw`text-secondary uppercase text-[13px] font-bold italic text-center`}>
-          Try Fitness Ready and start tracing your progress
-        </Text>
-        <LinearGradient
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          colors={['#4630EB', '#6453E2']}
-          style={tw`w-[90%] m-auto mb-[10px] mt-9 rounded-md`}
-        >
-          <TouchableHighlight onPress={() => navigate('Register')} style={tw`p-page`}>
-            <Text style={tw`text-tertiary uppercase text-base font-bold italic text-center`}>
-              Register
-            </Text>
-          </TouchableHighlight>
-        </LinearGradient>
-        <TouchableHighlight
-          onPress={() => navigate('LogIn')}
-          style={tw`w-[90%] bg-secondary p-page m-auto rounded-md`}
-        >
-          <Text style={tw`text-tertiary uppercase text-base font-bold italic text-center`}>
-            Login
+        <Button handlePress={() => navigate('Register')} style="w-[90%] m-auto my-3" type="linear">
+          <Text style={tw`text-white uppercase text-base font-bold italic text-center`}>
+            Register
           </Text>
-        </TouchableHighlight>
+        </Button>
+        <View style={tw`border-2 border-white/10 w-[90%] m-auto rounded-lg`}>
+          <Button bgColor={addOpacity('#FFFFFF', 4)} handlePress={() => navigate('LogIn')}>
+            <Text style={tw`text-white uppercase text-base font-bold italic text-center`}>
+              Login
+            </Text>
+          </Button>
+        </View>
       </View>
     </View>
   )

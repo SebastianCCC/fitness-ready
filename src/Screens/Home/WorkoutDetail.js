@@ -76,51 +76,53 @@ export default function WorkoutDetail({ route, navigation: { navigate } }) {
           <View style={tw`w-full h-[1px] bg-white mt-[11px]`}></View>
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {exercises &&
-            Object.keys(exercises).map(function (i) {
-              console.log(exercises[i].option)
-              return (
-                <View style={tw`bg-secondary/55 p-[9px] rounded-md m-[15px]`} key={i}>
-                  <View style={tw`w-full p-page bg-secondary rounded-md`}>
-                    <Text style={tw`text-tertiary text-base uppercase italic font-bold`}>
-                      {exercises[i].name}
-                    </Text>
-                  </View>
-                  <View style={tw`flex flex-row pt-[9px]`}>
-                    <View style={tw`w-1/3 p-page bg-secondary rounded-md`}>
-                      <Text
-                        style={tw`text-tertiary text-center text-base uppercase italic font-bold`}
-                      >
-                        {exercises[i].option.optionOne || 'no'} reps
+          <View style={tw`mx-[15px] my-2`}>
+            {exercises &&
+              Object.keys(exercises).map(function (i) {
+                console.log(exercises[i].option)
+                return (
+                  <View style={tw`bg-secondary/55 p-[9px] rounded-md my-2`} key={i}>
+                    <View style={tw`w-full p-page bg-secondary rounded-md`}>
+                      <Text style={tw`text-tertiary text-base uppercase italic font-bold`}>
+                        {exercises[i].name}
                       </Text>
                     </View>
-                    <View style={tw`w-1/3 px-[9px]`}>
-                      <View style={tw`p-page bg-secondary rounded-md`}>
+                    <View style={tw`flex flex-row pt-[9px]`}>
+                      <View style={tw`w-1/3 p-page bg-secondary rounded-md`}>
                         <Text
                           style={tw`text-tertiary text-center text-base uppercase italic font-bold`}
                         >
-                          {exercises[i].option.optionTwo || 'no'} sets
+                          {exercises[i].option.optionOne || 'no'} reps
                         </Text>
                       </View>
+                      <View style={tw`w-1/3 px-[9px]`}>
+                        <View style={tw`p-page bg-secondary rounded-md`}>
+                          <Text
+                            style={tw`text-tertiary text-center text-base uppercase italic font-bold`}
+                          >
+                            {exercises[i].option.optionTwo || 'no'} sets
+                          </Text>
+                        </View>
+                      </View>
+                      <LinearGradient
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        colors={['#4630EB', '#6453E2']}
+                        style={tw`w-1/3 rounded-md`}
+                      >
+                        <TouchableHighlight onPress={() => DeleteExercise(i)} style={tw`p-page`}>
+                          <Text
+                            style={tw`text-tertiary text-center text-base uppercase italic font-bold`}
+                          >
+                            Delete
+                          </Text>
+                        </TouchableHighlight>
+                      </LinearGradient>
                     </View>
-                    <LinearGradient
-                      start={{ x: 0, y: 0 }}
-                      end={{ x: 1, y: 0 }}
-                      colors={['#4630EB', '#6453E2']}
-                      style={tw`w-1/3 rounded-md`}
-                    >
-                      <TouchableHighlight onPress={() => DeleteExercise(i)} style={tw`p-page`}>
-                        <Text
-                          style={tw`text-tertiary text-center text-base uppercase italic font-bold`}
-                        >
-                          Delete
-                        </Text>
-                      </TouchableHighlight>
-                    </LinearGradient>
                   </View>
-                </View>
-              )
-            })}
+                )
+              })}
+          </View>
         </ScrollView>
       </View>
     </>
