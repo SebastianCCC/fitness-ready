@@ -15,8 +15,8 @@ export default function Home({ navigation: { navigate } }) {
         <Text style={tw`text-white text-base uppercase italic font-extrabold p-page`}>
           Workouts
         </Text>
-        <ScrollView horizontal>
-          <View style={tw`flex-row justify-between overflow-hidden pl-page`}>
+        <ScrollView>
+          <View style={tw`justify-between overflow-hidden px-page`}>
             {workouts.map((data, i) => (
               <WorkoutCard data={data} navigate={navigate} key={i} />
             ))}
